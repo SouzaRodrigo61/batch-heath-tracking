@@ -1,9 +1,9 @@
-package br.com.lifetracking.services;
+package br.com.lifetracking.batch;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
 
-import br.com.lifetracking.batch.Task;
+import br.com.lifetracking.models.Task;
 import io.quarkus.scheduler.Scheduled;
 
 @ApplicationScoped

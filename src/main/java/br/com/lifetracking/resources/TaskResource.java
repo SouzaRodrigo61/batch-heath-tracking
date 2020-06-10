@@ -7,7 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import br.com.lifetracking.batch.Task;
+import br.com.lifetracking.models.Task;
 
 @Path("/tasks")
 @Produces(MediaType.APPLICATION_JSON)

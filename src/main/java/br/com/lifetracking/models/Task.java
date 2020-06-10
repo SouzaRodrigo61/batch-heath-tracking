@@ -1,4 +1,4 @@
-package br.com.lifetracking.batch;
+package br.com.lifetracking.models;
 
 import java.time.Instant;
 
