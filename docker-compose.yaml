@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+   
+  nginx:
+    image: nginx:1.17.6
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:8080
+    networks:
+      - tasks-network  
+
+  postgres:
+    image: postgres:11.3
+    container_name: quarkus_test
+    environment:
+      - POSTGRES_USER=quarkus_test
+      - POSTGRES_PASSWORD=quarkus_test
+      - POSTGRES_DB=quarkus_test
+    ports:
+      - 5432:5432
+    networks: 
+      - tasks-network
+
+networks:
+  tasks-network:
+    driver: bridge
