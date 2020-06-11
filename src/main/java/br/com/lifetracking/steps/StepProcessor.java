@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import br.com.lifetracking.models.CovidSaude;
 import br.com.lifetracking.models.DadosBrasilCovid;
+import br.com.lifetracking.models.DadosBrasilCovidId;
 
 public class StepProcessor {
     
@@ -23,6 +24,7 @@ public class StepProcessor {
 
         saude.parallelStream().forEach( obj -> {
             DadosBrasilCovid caso = new DadosBrasilCovid();
+            caso.id = new DadosBrasilCovidId();
             caso.id.regiao = obj.getRegiao();
             caso.id.estado = obj.getEstado();
             caso.id.municipio = obj.getMunicipio();
