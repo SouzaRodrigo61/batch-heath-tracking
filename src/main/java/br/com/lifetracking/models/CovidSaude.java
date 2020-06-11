@@ -1,7 +1,5 @@
 package br.com.lifetracking.models;
 
-import java.time.LocalDate;
-
 public class CovidSaude {
     
     private String regiao;
@@ -11,13 +9,13 @@ public class CovidSaude {
     private String codmun;
     private String codRegiaoSaude;
     private String nomeRegiaoSaude;
-    private LocalDate data;
-    private Integer semanaEpi;
-    private Long populacaoTCU2019;
-    private Long casosNovos;
-    private Long obitosAcumulado;
-    private Long obitosNovos;
-    private Long recuperadosNovos; 
+    private String data;
+    private String semanaEpi;
+    private String populacaoTCU2019;
+    private String casosNovos;
+    private String obitosAcumulado;
+    private String obitosNovos;
+    private String recuperadosNovos; 
     private String emAcompanhamentoNovos;
     
     /**
@@ -331,98 +329,98 @@ public class CovidSaude {
 	/**
 	 * @return the data
 	 */
-	public LocalDate getData() {
+	public String getData() {
 		return data;
 	}
 
 	/**
 	 * @param data the data to set
 	 */
-	public void setData(LocalDate data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 
 	/**
 	 * @return the semanaEpi
 	 */
-	public Integer getSemanaEpi() {
+	public String getSemanaEpi() {
 		return semanaEpi;
 	}
 
 	/**
 	 * @param semanaEpi the semanaEpi to set
 	 */
-	public void setSemanaEpi(Integer semanaEpi) {
+	public void setSemanaEpi(String semanaEpi) {
 		this.semanaEpi = semanaEpi;
 	}
 
 	/**
 	 * @return the populacaoTCU2019
 	 */
-	public Long getPopulacaoTCU2019() {
+	public String getPopulacaoTCU2019() {
 		return populacaoTCU2019;
 	}
 
 	/**
 	 * @param populacaoTCU2019 the populacaoTCU2019 to set
 	 */
-	public void setPopulacaoTCU2019(Long populacaoTCU2019) {
+	public void setPopulacaoTCU2019(String populacaoTCU2019) {
 		this.populacaoTCU2019 = populacaoTCU2019;
 	}
 
 	/**
 	 * @return the casosNovos
 	 */
-	public Long getCasosNovos() {
+	public String getCasosNovos() {
 		return casosNovos;
 	}
 
 	/**
 	 * @param casosNovos the casosNovos to set
 	 */
-	public void setCasosNovos(Long casosNovos) {
+	public void setCasosNovos(String casosNovos) {
 		this.casosNovos = casosNovos;
 	}
 
 	/**
 	 * @return the obitosAcumulado
 	 */
-	public Long getObitosAcumulado() {
+	public String getObitosAcumulado() {
 		return obitosAcumulado;
 	}
 
 	/**
 	 * @param obitosAcumulado the obitosAcumulado to set
 	 */
-	public void setObitosAcumulado(Long obitosAcumulado) {
+	public void setObitosAcumulado(String obitosAcumulado) {
 		this.obitosAcumulado = obitosAcumulado;
 	}
 
 	/**
 	 * @return the obitosNovos
 	 */
-	public Long getObitosNovos() {
+	public String getObitosNovos() {
 		return obitosNovos;
 	}
 
 	/**
 	 * @param obitosNovos the obitosNovos to set
 	 */
-	public void setObitosNovos(Long obitosNovos) {
+	public void setObitosNovos(String obitosNovos) {
 		this.obitosNovos = obitosNovos;
 	}
 
 	/**
 	 * @return the recuperadosNovos
 	 */
-	public Long getRecuperadosNovos() {
+	public String getRecuperadosNovos() {
 		return recuperadosNovos;
 	}
 
 	/**
 	 * @param recuperadosNovos the recuperadosNovos to set
 	 */
-	public void setRecuperadosNovos(Long recuperadosNovos) {
+	public void setRecuperadosNovos(String recuperadosNovos) {
 		this.recuperadosNovos = recuperadosNovos;
 	}
 

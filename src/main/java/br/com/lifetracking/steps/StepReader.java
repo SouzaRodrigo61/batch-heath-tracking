@@ -3,8 +3,9 @@ package br.com.lifetracking.steps;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import org.dhatim.fastexcel.reader.ReadableWorkbook;
@@ -22,11 +23,14 @@ public class StepReader {
     private static Logger logger = LoggerFactory.getLogger(StepReader.class);
     private static final String fileName = "/tmp/brasil_covid.xlsx";
     
-    public static List<CovidSaude> reader() throws IOException {
+    public static Set
+    <CovidSaude> reader() throws IOException {
 
         logger.info("******************");
-        logger.info("Iniciou o Reader");
-        List<CovidSaude> listSaude = new ArrayList<CovidSaude>();
+        logger.info("Iniciou o Reader: " + Instant.now().toString());
+                
+
+        Set<CovidSaude> listSaude = new HashSet<>();
 
         File excelFile = new File(fileName);
         FileInputStream is = new FileInputStream(excelFile);
@@ -36,31 +40,28 @@ public class StepReader {
                 rows.forEach(r -> {
                     CovidSaude saude = new CovidSaude();
 
-                    saude.setRegiao(r.getCellAsString(0).orElse(null));
-                    saude.setEstado(r.getCellAsString(1).orElse(null));
-                    saude.setMunicipio(r.getCellAsString(2).orElse(null));
-                    saude.setCoduf(r.getCellAsString(3).orElse(null));
-                    // saude.setCodmun(r.getCellAsString(4).orElse(null));
-                    // saude.setCodRegiaoSaude(r.getCellAsString(5).orElse(null));
-                    // saude.setNomeRegiaoSaude(r.getCellAsString(6).orElse(null));
-                    // saude.setData(r.getCellAsDate(7).orElse(null).toLocalDate());
-                    // saude.setSemanaEpi(r.getCellAsNumber(8).orElse(BigDecimal.ZERO).intValue());
-                    // saude.setPopulacaoTCU2019(r.getCellAsNumber(9).orElse(BigDecimal.ZERO).longValue());
-                    // saude.setCasosNovos(r.getCellAsNumber(10).orElse(BigDecimal.ZERO).longValue());
-                    // saude.setObitosAcumulado(r.getCellAsNumber(11).orElse(BigDecimal.ZERO).longValue());
-                    // saude.setObitosNovos(r.getCellAsNumber(12).orElse(BigDecimal.ZERO).longValue());
-                    // saude.setRecuperadosNovos(r.getCellAsNumber(13).orElse(BigDecimal.ZERO).longValue());
-                    // saude.setEmAcompanhamentoNovos(r.getCellAsString(14).orElse(null));
-
-
-                    logger.info(saude.toString());
+                    saude.setRegiao(r.getCellText(0));
+                    saude.setEstado(r.getCellText(1));
+                    saude.setMunicipio(r.getCellText(2));
+                    saude.setCoduf(r.getCellText(3));
+                    saude.setCodmun(r.getCellText(4));
+                    saude.setCodRegiaoSaude(r.getCellText(5));
+                    saude.setNomeRegiaoSaude(r.getCellText(6));
+                    saude.setData(r.getCellText(7));
+                    saude.setSemanaEpi(r.getCellText(8));
+                    saude.setPopulacaoTCU2019(r.getCellText(9));
+                    saude.setCasosNovos(r.getCellText(10));
+                    saude.setObitosAcumulado(r.getCellText(11));
+                    saude.setObitosNovos(r.getCellText(12));
+                    saude.setRecuperadosNovos(r.getCellText(13));
+                    saude.setEmAcompanhamentoNovos(r.getCellText(14));
 
                     listSaude.add(saude);
                 });
             }
         }
         
-        logger.info("Reader finalizado com sucesso");
+        logger.info("Reader finalizado com sucesso: " + Instant.now().toString());
         logger.info("******************");
         return listSaude;
 
