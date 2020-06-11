@@ -4,6 +4,7 @@ import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
@@ -11,8 +12,30 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 @Entity
 public class DadosBrasilCovid extends PanacheEntityBase {
 
-	@EmbeddedId
-	public DadosBrasilCovidId id;
+	@Id
+	@Column
+	public Integer rowIndex;
+
+	@Column
+	public String regiao;
+	
+	@Column
+	public String estado;
+	
+	@Column
+	public String municipio;
+	
+	@Column
+	public String coduf;
+	
+	@Column
+	public String codmun;
+	
+	@Column
+	public String codRegiaoSaude;
+	
+	@Column
+	public String data;
 
 	@Column
 	public String nomeRegiaoSaude;

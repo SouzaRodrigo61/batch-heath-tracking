@@ -1,27 +1,116 @@
 package br.com.lifetracking.models;
 
+import com.poiji.annotation.ExcelCell;
+import com.poiji.annotation.ExcelRow;
+
 public class CovidSaude {
-    
+	
+	@ExcelRow
+	private Integer rowIndex;
+	
+	@ExcelCell(0)
     private String regiao;
+	@ExcelCell(1)
     private String estado;
+	@ExcelCell(2)
     private String municipio;
+	@ExcelCell(3)
     private String coduf;
+	@ExcelCell(4)
     private String codmun;
+	@ExcelCell(5)
     private String codRegiaoSaude;
+	@ExcelCell(6)
     private String nomeRegiaoSaude;
+	@ExcelCell(7)
     private String data;
+	@ExcelCell(8)
     private String semanaEpi;
+	@ExcelCell(9)
     private String populacaoTCU2019;
-    private String casosNovos;
+	@ExcelCell(10)
+	private String casosNovos;
+	@ExcelCell(11)
     private String obitosAcumulado;
+	@ExcelCell(12)
     private String obitosNovos;
+	@ExcelCell(13)
     private String recuperadosNovos; 
+	@ExcelCell(14)
     private String emAcompanhamentoNovos;
+
     
     /**
 	 * 
 	 */
 	public CovidSaude() {
+	}
+
+	/**
+	 * @param emAcompanhamentoNovos the emAcompanhamentoNovos to set
+	 */
+	public void setEmAcompanhamentoNovos(String emAcompanhamentoNovos) {
+		this.emAcompanhamentoNovos = emAcompanhamentoNovos;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("CovidSaude [");
+		if (casosNovos != null) {
+			builder.append("casosNovos=").append(casosNovos).append(", ");
+		}
+		if (codRegiaoSaude != null) {
+			builder.append("codRegiaoSaude=").append(codRegiaoSaude).append(", ");
+		}
+		if (codmun != null) {
+			builder.append("codmun=").append(codmun).append(", ");
+		}
+		if (coduf != null) {
+			builder.append("coduf=").append(coduf).append(", ");
+		}
+		if (data != null) {
+			builder.append("data=").append(data).append(", ");
+		}
+		if (emAcompanhamentoNovos != null) {
+			builder.append("emAcompanhamentoNovos=").append(emAcompanhamentoNovos).append(", ");
+		}
+		if (estado != null) {
+			builder.append("estado=").append(estado).append(", ");
+		}
+		if (municipio != null) {
+			builder.append("municipio=").append(municipio).append(", ");
+		}
+		if (nomeRegiaoSaude != null) {
+			builder.append("nomeRegiaoSaude=").append(nomeRegiaoSaude).append(", ");
+		}
+		if (obitosAcumulado != null) {
+			builder.append("obitosAcumulado=").append(obitosAcumulado).append(", ");
+		}
+		if (obitosNovos != null) {
+			builder.append("obitosNovos=").append(obitosNovos).append(", ");
+		}
+		if (populacaoTCU2019 != null) {
+			builder.append("populacaoTCU2019=").append(populacaoTCU2019).append(", ");
+		}
+		if (recuperadosNovos != null) {
+			builder.append("recuperadosNovos=").append(recuperadosNovos).append(", ");
+		}
+		if (regiao != null) {
+			builder.append("regiao=").append(regiao).append(", ");
+		}
+		if (rowIndex != null) {
+			builder.append("rowIndex=").append(rowIndex).append(", ");
+		}
+		if (semanaEpi != null) {
+			builder.append("semanaEpi=").append(semanaEpi);
+		}
+		builder.append("]");
+		return builder.toString();
 	}
 
 	/* (non-Javadoc)
@@ -46,6 +135,7 @@ public class CovidSaude {
 		result = prime * result + ((populacaoTCU2019 == null) ? 0 : populacaoTCU2019.hashCode());
 		result = prime * result + ((recuperadosNovos == null) ? 0 : recuperadosNovos.hashCode());
 		result = prime * result + ((regiao == null) ? 0 : regiao.hashCode());
+		result = prime * result + ((rowIndex == null) ? 0 : rowIndex.hashCode());
 		result = prime * result + ((semanaEpi == null) ? 0 : semanaEpi.hashCode());
 		return result;
 	}
@@ -161,6 +251,13 @@ public class CovidSaude {
 		} else if (!regiao.equals(other.regiao)) {
 			return false;
 		}
+		if (rowIndex == null) {
+			if (other.rowIndex != null) {
+				return false;
+			}
+		} else if (!rowIndex.equals(other.rowIndex)) {
+			return false;
+		}
 		if (semanaEpi == null) {
 			if (other.semanaEpi != null) {
 				return false;
@@ -171,61 +268,18 @@ public class CovidSaude {
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	/**
+	 * @return the rowIndex
 	 */
-	
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("CovidSaude [");
-		if (casosNovos != null) {
-			builder.append("casosNovos=").append(casosNovos).append(", ");
-		}
-		if (codRegiaoSaude != null) {
-			builder.append("codRegiaoSaude=").append(codRegiaoSaude).append(", ");
-		}
-		if (codmun != null) {
-			builder.append("codmun=").append(codmun).append(", ");
-		}
-		if (coduf != null) {
-			builder.append("coduf=").append(coduf).append(", ");
-		}
-		if (data != null) {
-			builder.append("data=").append(data).append(", ");
-		}
-		if (emAcompanhamentoNovos != null) {
-			builder.append("emAcompanhamentoNovos=").append(emAcompanhamentoNovos).append(", ");
-		}
-		if (estado != null) {
-			builder.append("estado=").append(estado).append(", ");
-		}
-		if (municipio != null) {
-			builder.append("municipio=").append(municipio).append(", ");
-		}
-		if (nomeRegiaoSaude != null) {
-			builder.append("nomeRegiaoSaude=").append(nomeRegiaoSaude).append(", ");
-		}
-		if (obitosAcumulado != null) {
-			builder.append("obitosAcumulado=").append(obitosAcumulado).append(", ");
-		}
-		if (obitosNovos != null) {
-			builder.append("obitosNovos=").append(obitosNovos).append(", ");
-		}
-		if (populacaoTCU2019 != null) {
-			builder.append("populacaoTCU2019=").append(populacaoTCU2019).append(", ");
-		}
-		if (recuperadosNovos != null) {
-			builder.append("recuperadosNovos=").append(recuperadosNovos).append(", ");
-		}
-		if (regiao != null) {
-			builder.append("regiao=").append(regiao).append(", ");
-		}
-		if (semanaEpi != null) {
-			builder.append("semanaEpi=").append(semanaEpi);
-		}
-		builder.append("]");
-		return builder.toString();
+	public Integer getRowIndex() {
+		return rowIndex;
+	}
+
+	/**
+	 * @param rowIndex the rowIndex to set
+	 */
+	public void setRowIndex(Integer rowIndex) {
+		this.rowIndex = rowIndex;
 	}
 
 	/**
@@ -429,13 +483,6 @@ public class CovidSaude {
 	 */
 	public String getEmAcompanhamentoNovos() {
 		return emAcompanhamentoNovos;
-	}
-
-	/**
-	 * @param emAcompanhamentoNovos the emAcompanhamentoNovos to set
-	 */
-	public void setEmAcompanhamentoNovos(String emAcompanhamentoNovos) {
-		this.emAcompanhamentoNovos = emAcompanhamentoNovos;
 	}
 
 	
