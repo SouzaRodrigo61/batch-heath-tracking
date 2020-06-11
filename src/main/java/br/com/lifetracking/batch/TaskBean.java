@@ -2,7 +2,9 @@ package br.com.lifetracking.batch;
 
 import java.io.IOException;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -44,24 +46,29 @@ public class TaskBean {
     @Transactional
     @Scheduled(cron = "0 44 12 * * ?")
     void schedule() {
-        Set<DadosBrasilCovid> casos = new HashSet<>();
-        Set<CovidSaude> saude = new HashSet<>();
         Task task = new Task();
         task.persist();
 
+        logger.info("Entrou no job \n");
         try {
-            System.out.println("Entrou no job");
             StepDownload.downloadFile();
-            saude = StepReader.reader();
+
+            List<CovidSaude> listSaude = new ArrayList<>();
+            listSaude = StepReader.reader();
+            
+            Set<CovidSaude> saude = new HashSet<>(listSaude);
+            Set<DadosBrasilCovid> casos = new HashSet<>();
             casos = StepProcessor.processor(saude);
+
 
             logger.info("******************");
             logger.info("Iniciou o Writer: " + Instant.now().toString());
-            casos.forEach(action -> action.persist());
+            casos.forEach(action -> {
+                action.persist();
+            });
 
             logger.info("Writer finalizado com sucesso: " + Instant.now().toString());
             logger.info("******************");
-
         } catch (IOException e) {
             e.printStackTrace();
         }

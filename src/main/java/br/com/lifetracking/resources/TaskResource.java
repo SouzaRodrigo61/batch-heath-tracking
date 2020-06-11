@@ -2,6 +2,7 @@ package br.com.lifetracking.resources;
 
 import java.io.IOException;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,6 +27,7 @@ import br.com.lifetracking.models.Task;
 import br.com.lifetracking.steps.StepDownload;
 import br.com.lifetracking.steps.StepProcessor;
 import br.com.lifetracking.steps.StepReader;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 
 @ApplicationScoped
@@ -34,8 +36,6 @@ import br.com.lifetracking.steps.StepReader;
 public class TaskResource {
 
     private static Logger logger = LoggerFactory.getLogger(StepReader.class);
-    Set<DadosBrasilCovid> casos = new HashSet<>();
-
 
     @Inject UserTransaction userTransaction;
 
@@ -58,29 +58,34 @@ public class TaskResource {
     @GET
     @Path("/batch")
     @Transactional
-    public void batch() {
-        Set<CovidSaude> saude = new HashSet<>();
-        System.out.println("Entrou no job");
+    public Set<DadosBrasilCovid> batch() {
+        logger.info("Entrou no job \n");
         try {
             StepDownload.downloadFile();
-            saude = StepReader.reader();
-            casos = StepProcessor.processor(saude);
+
+            List<CovidSaude> listSaude = new ArrayList<>();
+            listSaude = StepReader.reader();
+            
+            Set<CovidSaude> saude = new HashSet<>(listSaude);
+            Set<DadosBrasilCovid> casos = StepProcessor.processor(saude);
 
 
             logger.info("******************");
             logger.info("Iniciou o Writer: " + Instant.now().toString());
-            casos.forEach(action -> {
-                logger.info(action.toString());
-                action.persist();
-            });
-
             
+            PanacheEntity.persist(casos);
+            // for (DadosBrasilCovid covidSaude : casos) {
+            //     covidSaude.persist();
+            // }
 
             logger.info("Writer finalizado com sucesso: " + Instant.now().toString());
             logger.info("******************");
+
+            return casos;
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(0);
         }
-        return;
+        return null;
     }
 }
