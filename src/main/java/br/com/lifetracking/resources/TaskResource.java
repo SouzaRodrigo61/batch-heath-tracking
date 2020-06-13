@@ -7,16 +7,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.transaction.SystemException;
 import javax.transaction.Transactional;
 import javax.transaction.UserTransaction;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,16 +57,16 @@ public class TaskResource {
     }
 
 
-    @GET
+    @POST
     @Path("/batch")
     @Transactional
-    public Set<DadosBrasilCovid> batch() {
-        logger.info("Entrou no job \n");
+    public Response batch(String url) {
+        logger.info("\nEntrou no job \n");
         try {
-            StepDownload.downloadFile();
+            StepDownload.downloadFileByUrl(url);
 
             List<CovidSaude> listSaude = new ArrayList<>();
-            listSaude = StepReader.reader();
+            listSaude = StepReader.readerByUrl();
             
             Set<CovidSaude> saude = new HashSet<>(listSaude);
             Set<DadosBrasilCovid> casos = StepProcessor.processor(saude);
@@ -74,18 +76,14 @@ public class TaskResource {
             logger.info("Iniciou o Writer: " + Instant.now().toString());
             
             PanacheEntity.persist(casos);
-            // for (DadosBrasilCovid covidSaude : casos) {
-            //     covidSaude.persist();
-            // }
 
             logger.info("Writer finalizado com sucesso: " + Instant.now().toString());
             logger.info("******************");
 
-            return casos;
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(0);
         }
-        return null;
+        return Response.status(201).build();
     }
 }

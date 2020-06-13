@@ -2,7 +2,6 @@ package br.com.lifetracking.models;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
