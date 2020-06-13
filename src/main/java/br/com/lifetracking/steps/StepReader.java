@@ -52,7 +52,7 @@ public class StepReader {
 
         LocalDate dateTime = CurrentDate.currentDate();
         logger.info("Data formatada: " + dateTime);
-        String dir = "/Users/rodrigo/Documents/Rodrigo/batch-life-tracking/src/main/resources/tmp/brasil_" + "2020-06-12" + ".csv";
+        String dir = "/Users/rodrigo/Documents/Rodrigo/batch-life-tracking/src/main/resources/tmp/brasil_" + dateTime + ".csv";
                 
         CsvToBeanBuilder<BrasilCovid> csvToBeanBuilder = new CsvToBeanBuilder<BrasilCovid>(
                 new FileReader(dir));

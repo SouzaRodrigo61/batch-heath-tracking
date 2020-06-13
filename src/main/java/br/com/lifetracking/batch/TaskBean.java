@@ -1,5 +1,10 @@
 package br.com.lifetracking.batch;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -10,9 +15,13 @@ import javax.transaction.UserTransaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.lifetracking.models.BrasilCovid;
+import br.com.lifetracking.models.BrasilCovidEntity;
 import br.com.lifetracking.models.Task;
 import br.com.lifetracking.steps.StepDownload;
+import br.com.lifetracking.steps.StepProcessor;
 import br.com.lifetracking.steps.StepReader;
+import br.com.lifetracking.steps.StepWriter;
 import io.quarkus.scheduler.Scheduled;
 
 @ApplicationScoped
@@ -34,7 +43,7 @@ public class TaskBean {
     }
 
     @Transactional
-    @Scheduled(cron = "0 01 01 * * ?")
+    @Scheduled(cron = "0 27 13 * * ?")
     void schedule() {
         Task task = new Task();
         task.persist();
@@ -43,7 +52,12 @@ public class TaskBean {
             logger.info("Entrou no job \n");
             
             StepDownload.downloadFile();
-            StepReader.readerCSV();
+            List<BrasilCovid> listSaude = new ArrayList<>();
+            listSaude = StepReader.readerCSV();
+            Set<BrasilCovid> saude = new HashSet<>(listSaude);
+            Set<BrasilCovidEntity> casos = StepProcessor.processorByCSV(saude);
+            StepWriter.writeByCSV(casos);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
