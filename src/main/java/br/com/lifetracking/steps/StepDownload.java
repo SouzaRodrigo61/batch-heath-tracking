@@ -65,7 +65,7 @@ public class StepDownload {
         logger.info("Data formatada: " + dateTime);
 
         final URL urlDownload = new URL("https://brasil.io/dataset/covid19/caso_full/?date=" + dateTime + "&format=csv");
-        final File file = new File("/Users/rodrigo/Documents/Rodrigo/batch-life-tracking/src/main/resources/tmp/brasil_" + dateTime + ".csv");
+        final File file = new File("/tmp/brasil_" + dateTime + ".csv");
         
         FileUtils.copyURLToFile(urlDownload, file);
 
