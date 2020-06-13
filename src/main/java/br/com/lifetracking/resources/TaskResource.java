@@ -2,6 +2,7 @@ package br.com.lifetracking.resources;
 
 import java.io.IOException;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -23,12 +24,15 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.lifetracking.models.BrasilCovid;
+import br.com.lifetracking.models.BrasilCovidEntity;
 import br.com.lifetracking.models.CovidSaude;
 import br.com.lifetracking.models.DadosBrasilCovid;
 import br.com.lifetracking.models.Task;
 import br.com.lifetracking.steps.StepDownload;
 import br.com.lifetracking.steps.StepProcessor;
 import br.com.lifetracking.steps.StepReader;
+import br.com.lifetracking.steps.StepWriter;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 
@@ -56,11 +60,35 @@ public class TaskResource {
         return Task.listAll();
     }
 
+    @POST
+    @Path("/brasil_covid")
+    @Transactional
+    public Response brasilCovid(LocalDate date) {
+        logger.info("\nEntrou no job \n");
+        try {
+
+            StepDownload.downloadFileByDate(date);
+
+            List<BrasilCovid> listSaude = new ArrayList<>();
+            listSaude = StepReader.readerByDAte(date);
+            
+            Set<BrasilCovid> saude = new HashSet<>(listSaude);
+            Set<BrasilCovidEntity> casos = StepProcessor.processorByCSV(saude);
+            StepWriter.writeByCSV(casos);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+        return Response.status(201).build();
+    }
+
 
     @POST
-    @Path("/batch")
+    @Path("/ms_covid")
     @Transactional
-    public Response batch(String url) {
+    public Response covidMS(String url) {
         logger.info("\nEntrou no job \n");
         try {
             StepDownload.downloadFileByUrl(url);

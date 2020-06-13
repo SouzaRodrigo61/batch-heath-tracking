@@ -43,7 +43,7 @@ public class TaskBean {
     }
 
     @Transactional
-    @Scheduled(cron = "0 27 13 * * ?")
+    @Scheduled(cron = "0 30 21 * * ?")
     void schedule() {
         Task task = new Task();
         task.persist();

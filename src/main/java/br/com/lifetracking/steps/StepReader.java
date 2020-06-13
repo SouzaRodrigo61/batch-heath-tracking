@@ -52,6 +52,28 @@ public class StepReader {
 
         LocalDate dateTime = CurrentDate.currentDate();
         logger.info("Data formatada: " + dateTime);
+        String dir = "/Users/rodrigo/Documents/Rodrigo/batch-life-tracking/src/main/resources/tmp/brasil_" + dateTime
+                + ".csv";
+
+        CsvToBeanBuilder<BrasilCovid> csvToBeanBuilder = new CsvToBeanBuilder<BrasilCovid>(new FileReader(dir));
+
+        List<BrasilCovid> casos = csvToBeanBuilder.withMappingStrategy(ColumnStrategy.setColumMapping()).build()
+                .parse();
+
+        logger.info("Reader finalizado com sucesso: " + Instant.now().toString());
+        logger.info("******************");
+
+        return casos;
+    }
+    
+    @SuppressWarnings({"unchecked"})
+    public static List<BrasilCovid> readerByDAte(LocalDate date) throws IOException {
+
+        logger.info("******************");
+        logger.info("Iniciou o Reader: " + Instant.now().toString());
+
+        LocalDate dateTime = date;
+        logger.info("Data formatada: " + dateTime);
         String dir = "/Users/rodrigo/Documents/Rodrigo/batch-life-tracking/src/main/resources/tmp/brasil_" + dateTime + ".csv";
                 
         CsvToBeanBuilder<BrasilCovid> csvToBeanBuilder = new CsvToBeanBuilder<BrasilCovid>(

@@ -55,4 +55,22 @@ public class StepDownload {
         logger.info("******************");
     }
 
+
+    public static void downloadFileByDate(LocalDate date) throws MalformedURLException, IOException {
+
+        logger.info("******************");
+        logger.info("Inicio do download");
+
+        LocalDate dateTime = date;
+        logger.info("Data formatada: " + dateTime);
+
+        final URL urlDownload = new URL("https://brasil.io/dataset/covid19/caso_full/?date=" + dateTime + "&format=csv");
+        final File file = new File("/Users/rodrigo/Documents/Rodrigo/batch-life-tracking/src/main/resources/tmp/brasil_" + dateTime + ".csv");
+        
+        FileUtils.copyURLToFile(urlDownload, file);
+
+        logger.info("Download realizado com sucesso");
+        logger.info("******************");
+    }
+
 }
