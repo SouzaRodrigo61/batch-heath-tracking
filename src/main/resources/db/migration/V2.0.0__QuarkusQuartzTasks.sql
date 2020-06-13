@@ -166,30 +166,6 @@ CREATE TABLE QRTZ_LOCKS
   PRIMARY KEY (SCHED_NAME, LOCK_NAME)
 );
 
-
-CREATE TABLE dadosbrasilcovid (
-    id uuid PRIMARY KEY,
-    casosnovos character varying(255),
-    codregiaosaude character varying(255),
-    codmun character varying(255),
-    coduf character varying(255),
-    data character varying(255),
-    emacompanhamentonovos character varying(255),
-    estado character varying(255),
-    municipio character varying(255),
-    nomeregiaosaude character varying(255),
-    obitosacumulado character varying(255),
-    obitosnovos character varying(255),
-    populacaotcu2019 character varying(255),
-    recuperadosnovos character varying(255),
-    regiao character varying(255),
-    semanaepi character varying(255)
-);
-
--- Indices -------------------------------------------------------
-
-CREATE UNIQUE INDEX dadosbrasilcovid_pkey ON dadosbrasilcovid(id uuid_ops);
-
 CREATE INDEX IDX_QRTZ_J_REQ_RECOVERY
   ON QRTZ_JOB_DETAILS (SCHED_NAME, REQUESTS_RECOVERY);
 CREATE INDEX IDX_QRTZ_J_GRP

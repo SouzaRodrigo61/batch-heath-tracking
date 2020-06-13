@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import javax.transaction.SystemException;
 import javax.transaction.Transactional;
 import javax.transaction.UserTransaction;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -33,12 +34,14 @@ import br.com.lifetracking.steps.StepDownload;
 import br.com.lifetracking.steps.StepProcessor;
 import br.com.lifetracking.steps.StepReader;
 import br.com.lifetracking.steps.StepWriter;
+import br.com.lifetracking.util.CurrentDate;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 
-@ApplicationScoped
 @Path("/tasks")
+@ApplicationScoped
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class TaskResource {
 
     private static Logger logger = LoggerFactory.getLogger(StepReader.class);
@@ -61,11 +64,13 @@ public class TaskResource {
     }
 
     @POST
-    @Path("/brasil_covid")
+    @Path("/covid")
     @Transactional
-    public Response brasilCovid(LocalDate date) {
+    public Response brasilCovid(String dataString) {
         logger.info("\nEntrou no job \n");
         try {
+            LocalDate date = LocalDate.parse(dataString);
+            date.format(CurrentDate.dateFormatter());
 
             StepDownload.downloadFileByDate(date);
 
