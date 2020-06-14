@@ -44,7 +44,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 @Consumes(MediaType.APPLICATION_JSON)
 public class TaskResource {
 
-    private static Logger logger = LoggerFactory.getLogger(StepReader.class);
+    private static Logger logger = LoggerFactory.getLogger(TaskResource.class);
 
     @Inject UserTransaction userTransaction;
 
@@ -67,7 +67,7 @@ public class TaskResource {
     @Path("/covid")
     @Transactional
     public Response brasilCovid(String dataString) {
-        logger.info("\nEntrou no job \n");
+        logger.info("Entrou no job \n");
         try {
             LocalDate date = LocalDate.parse(dataString);
             date.format(CurrentDate.dateFormatter());
