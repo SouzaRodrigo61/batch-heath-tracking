@@ -55,7 +55,15 @@ public class BrasilCovidResource {
     public Response uf(@PathParam String uf) {
         logger.info("Expecifico estado");
         BrasilCovidEntity covid = BrasilCovidRepository.especificoEstado(uf);
-        return Response.ok(covid).status(201).build();
+        return Response.ok(covid).status(200).build();
+    }
+
+    @GET
+    @Path("/especifico/{city}")
+    public Response expecificoCidade(@PathParam String city) {
+        logger.info("Expecifico cidade");
+        BrasilCovidEntity covid = BrasilCovidRepository.especificoCidade(city);
+        return Response.ok(covid).status(200).build();
     }
 
 }
