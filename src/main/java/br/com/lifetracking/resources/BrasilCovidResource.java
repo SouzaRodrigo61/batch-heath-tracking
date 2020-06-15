@@ -66,4 +66,12 @@ public class BrasilCovidResource {
         return Response.ok(covid).status(200).build();
     }
 
+    @GET
+    @Path("/relatorio/{city}")
+    public Response relatorioCidade(@PathParam String city) {
+        logger.info("Expecifico cidade");
+        List<BrasilCovidEntity> covid = BrasilCovidRepository.relatorioCidade(city);
+        return Response.ok(covid).status(200).build();
+    }
+
 }

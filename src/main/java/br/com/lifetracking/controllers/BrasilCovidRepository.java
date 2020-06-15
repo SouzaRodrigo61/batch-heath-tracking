@@ -86,7 +86,22 @@ public class BrasilCovidRepository implements PanacheRepository<BrasilCovidEntit
     }
 
     //* Retorna uma lista de dados para analise de uma cidade *\\
+    public static List<BrasilCovidEntity> relatorioCidade(String city) {
+        logger.info("Retorna uma lista de dados para analise de uma cidade com casos do covid");
 
+        Map<String, Object> params = new HashMap<>();
+        StringBuilder filters = new StringBuilder();
+
+        filters.append(" 1=1 ");
+
+        filters.append("and city = :city ");
+        params.put("city", city);
+
+        filters.append("order by date desc ");
+
+        return BrasilCovidEntity.list(filters.toString(), params);
+
+    }
 
 
 
