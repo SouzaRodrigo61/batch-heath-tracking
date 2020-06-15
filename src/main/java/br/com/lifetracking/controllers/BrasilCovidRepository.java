@@ -42,7 +42,7 @@ public class BrasilCovidRepository implements PanacheRepository<BrasilCovidEntit
 
         filters.append("and is_last = 'True' ");
         filters.append("and place_type <> 'state' ");
-        filters.append("order by date desc, state asc");
+        filters.append("order by date desc, state asc, city asc");
 
         return BrasilCovidEntity.list(filters.toString());
 
