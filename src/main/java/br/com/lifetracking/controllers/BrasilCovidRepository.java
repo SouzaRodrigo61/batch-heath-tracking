@@ -68,7 +68,7 @@ public class BrasilCovidRepository implements PanacheRepository<BrasilCovidEntit
     }
 
     //* Retorna o dado por cidade [ que e o ultimo registro preenchido na tabela ] *\\
-    public static BrasilCovidEntity especificoCidade(String city) {
+    public static BrasilCovidEntity especificoCidade(String city, String uf) {
         logger.info("Retorna o dado por cidade [ que e o ultimo registro preenchido na tabela ] com casos do covid");
 
         Map<String, Object> params = new HashMap<>();
@@ -78,6 +78,8 @@ public class BrasilCovidRepository implements PanacheRepository<BrasilCovidEntit
 
         filters.append("and city = :city ");
         params.put("city", city);
+        filters.append("and state = :state ");
+        params.put("state", uf);
 
         filters.append("order by date desc ");
 
@@ -86,7 +88,7 @@ public class BrasilCovidRepository implements PanacheRepository<BrasilCovidEntit
     }
 
     //* Retorna uma lista de dados para analise de uma cidade *\\
-    public static List<BrasilCovidEntity> relatorioCidade(String city) {
+    public static List<BrasilCovidEntity> relatorioCidade(String city, String uf) {
         logger.info("Retorna uma lista de dados para analise de uma cidade com casos do covid");
 
         Map<String, Object> params = new HashMap<>();
@@ -96,6 +98,8 @@ public class BrasilCovidRepository implements PanacheRepository<BrasilCovidEntit
 
         filters.append("and city = :city ");
         params.put("city", city);
+        filters.append("and state = :state ");
+        params.put("state", uf);
 
         filters.append("order by date desc ");
 

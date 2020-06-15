@@ -59,18 +59,18 @@ public class BrasilCovidResource {
     }
 
     @GET
-    @Path("/especifico/{city}")
-    public Response expecificoCidade(@PathParam String city) {
+    @Path("/especifico/{city}/{uf}")
+    public Response expecificoCidade(@PathParam String city, @PathParam String uf) {
         logger.info("Expecifico cidade");
-        BrasilCovidEntity covid = BrasilCovidRepository.especificoCidade(city);
+        BrasilCovidEntity covid = BrasilCovidRepository.especificoCidade(city, uf);
         return Response.ok(covid).status(200).build();
     }
 
     @GET
-    @Path("/relatorio/{city}")
-    public Response relatorioCidade(@PathParam String city) {
+    @Path("/relatorio/{city}/{uf}")
+    public Response relatorioCidade(@PathParam String city, @PathParam String uf) {
         logger.info("Relatorio da cidade");
-        List<BrasilCovidEntity> covid = BrasilCovidRepository.relatorioCidade(city);
+        List<BrasilCovidEntity> covid = BrasilCovidRepository.relatorioCidade(city, uf);
         return Response.ok(covid).status(200).build();
     }
 
